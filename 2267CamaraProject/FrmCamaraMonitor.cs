@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using AForge.Video.DirectShow;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using AForge.Video;
 
@@ -19,13 +15,20 @@ namespace _2267CamaraProject
         private bool HayDispositivos;
         private FilterInfoCollection MisDispositivos;
         private VideoCaptureDevice MiWebCam;
+
+        // Move Form
         [DllImport("user32.dll", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
-        public static int animation = 0;
-        public static int aniIMG = 0;
-        public static bool offorOn = false;
+
+        // Variables para la animación
+        public static int countImageAnimationCam1 = 0;
+
+        // Variables para saber el estado de encendido apagado
+        public static bool estaEncendidaCam1 = false;
+
+        // Imagen que se utiliza para guardar una captura!
         public static Image capture;
 
 
@@ -34,45 +37,26 @@ namespace _2267CamaraProject
             InitializeComponent();
         }
 
-        private void Camara_Load(object sender, EventArgs e)
+        // Cargar los dispositivos de entrada de video en el combobox
+        private void CargaDiapositivos()
         {
-            CargaDiapositivos();
-            TimerAnimation.Start();
-        }
-
-        public void CargaDiapositivos()
-        {
-
             MisDispositivos = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             if (MisDispositivos.Count > 0)
             {
                 HayDispositivos = true;
                 cbCamaraSelect.Items.Clear();
+
                 for (int i = 0; i < MisDispositivos.Count; i++)
                 {
                     cbCamaraSelect.Items.Add(MisDispositivos[i].Name.ToString());
-                    cbCamaraSelect.Text = MisDispositivos[0].Name.ToString();
-                }
 
+                }
+                cbCamaraSelect.Text = MisDispositivos[0].Name.ToString();
             }
             else
             {
                 HayDispositivos = false;
             }
-        }
-
-        private void Capturando(object sender, NewFrameEventArgs eventsArgs)
-        {
-
-            Bitmap Imagen = (Bitmap)eventsArgs.Frame.Clone();
-            picCamara.Image = Imagen;
-
-        }
-
-        private void iconClose_Click(object sender, EventArgs e)
-        {
-            this.Close();
-            CerrarWebCam();
         }
 
         private void CerrarWebCam()
@@ -85,15 +69,28 @@ namespace _2267CamaraProject
             }
         }
 
+        private void Capturando(object sender, NewFrameEventArgs eventsArgs)
+        {
+            Bitmap Imagen = (Bitmap)eventsArgs.Frame.Clone();
+            // Rota la imagen 90 grados
+            //Imagen.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            picCamara.Image = Imagen;
+        }
+
+        private void iconClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            CerrarWebCam();
+        }
+
         private void IconIniciarCam_Click(object sender, EventArgs e)
         {
             if (TimerAnimation.Enabled == true)
             {
                 TimerAnimation.Stop();
-                animation = 1;
             }
 
-            if (offorOn == false)
+            if (estaEncendidaCam1 == false)
             {
                 CerrarWebCam();
                 int i = cbCamaraSelect.SelectedIndex;
@@ -101,17 +98,18 @@ namespace _2267CamaraProject
                 MiWebCam = new VideoCaptureDevice(NombreVideo);
                 MiWebCam.NewFrame += new NewFrameEventHandler(Capturando);
                 MiWebCam.Start();
-                offorOn = true;
+                estaEncendidaCam1 = true;
+                IconIniciarCam.IconChar = FontAwesome.Sharp.IconChar.ToggleOn;
             }
-            else if (offorOn == true)
+            else if (estaEncendidaCam1 == true)
             {
                 CerrarWebCam();
                 picCamara.Image.Dispose();
                 picCamara.Image = Properties.Resources.signal1;
                 TimerAnimation.Start();
-                animation = 0;
-                aniIMG = 1;
-                offorOn = false;
+                countImageAnimationCam1 = 1;
+                estaEncendidaCam1 = false;
+                IconIniciarCam.IconChar = FontAwesome.Sharp.IconChar.ToggleOff;
             }
         }
 
@@ -119,9 +117,9 @@ namespace _2267CamaraProject
         {
             CerrarWebCam();
             TimerAnimation.Stop();
-            animation = 0;
-            aniIMG = 0;
-            offorOn = false;
+            countImageAnimationCam1 = 0;
+
+            estaEncendidaCam1 = false;
         }
 
         private void iconMini_Click(object sender, EventArgs e)
@@ -144,42 +142,42 @@ namespace _2267CamaraProject
 
         private void TimerAnimation_Tick(object sender, EventArgs e)
         {
-            if (animation == 0)
+            if (estaEncendidaCam1 == false)
             {
 
-                if (aniIMG == 0)
+                if (countImageAnimationCam1 == 0)
                 {
                     picCamara.Image.Dispose();
                     picCamara.Image = Properties.Resources.signal1;
-                    aniIMG++;
+                    countImageAnimationCam1++;
                     return;
                 }
-                if (aniIMG == 1)
+                if (countImageAnimationCam1 == 1)
                 {
                     picCamara.Image.Dispose();
                     picCamara.Image = Properties.Resources.signal2;
-                    aniIMG++;
+                    countImageAnimationCam1++;
                     return;
                 }
-                if (aniIMG == 2)
+                if (countImageAnimationCam1 == 2)
                 {
                     picCamara.Image.Dispose();
                     picCamara.Image = Properties.Resources.signal3;
-                    aniIMG++;
+                    countImageAnimationCam1++;
                     return;
                 }
-                if (aniIMG == 3)
+                if (countImageAnimationCam1 == 3)
                 {
                     picCamara.Image.Dispose();
                     picCamara.Image = Properties.Resources.signal4;
-                    aniIMG++;
+                    countImageAnimationCam1++;
                     return;
                 }
-                if (aniIMG == 4)
+                if (countImageAnimationCam1 == 4)
                 {
                     picCamara.Image.Dispose();
                     picCamara.Image = Properties.Resources.signal5;
-                    aniIMG = 0;
+                    countImageAnimationCam1 = 0;
                     return;
                 }
             }
@@ -207,6 +205,12 @@ namespace _2267CamaraProject
                     return;
                 }
             }
+        }
+
+        private void FrmCamaraMonitor_Load(object sender, EventArgs e)
+        {
+            CargaDiapositivos();
+            TimerAnimation.Start();
         }
     }
 }
