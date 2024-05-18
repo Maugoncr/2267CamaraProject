@@ -35,12 +35,12 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.iconClose = new FontAwesome.Sharp.IconButton();
             this.iconMini = new FontAwesome.Sharp.IconButton();
+            this.iconRefresh = new FontAwesome.Sharp.IconButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.picCamara = new System.Windows.Forms.PictureBox();
             this.lbNameCam1 = new System.Windows.Forms.Label();
             this.IconIniciarCam = new FontAwesome.Sharp.IconButton();
-            this.picCamara = new System.Windows.Forms.PictureBox();
             this.cbCamaraSelect = new System.Windows.Forms.ComboBox();
-            this.iconRefresh = new FontAwesome.Sharp.IconButton();
             this.iconCapture = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -151,6 +151,22 @@
             this.iconMini.UseVisualStyleBackColor = false;
             this.iconMini.Click += new System.EventHandler(this.iconMini_Click);
             // 
+            // iconRefresh
+            // 
+            this.iconRefresh.BackColor = System.Drawing.Color.Transparent;
+            this.iconRefresh.FlatAppearance.BorderSize = 0;
+            this.iconRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconRefresh.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
+            this.iconRefresh.IconColor = System.Drawing.Color.White;
+            this.iconRefresh.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconRefresh.IconSize = 35;
+            this.iconRefresh.Location = new System.Drawing.Point(245, 7);
+            this.iconRefresh.Name = "iconRefresh";
+            this.iconRefresh.Size = new System.Drawing.Size(43, 52);
+            this.iconRefresh.TabIndex = 4;
+            this.iconRefresh.UseVisualStyleBackColor = false;
+            this.iconRefresh.Click += new System.EventHandler(this.iconRefresh_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -163,8 +179,19 @@
             this.panel1.Controls.Add(this.iconCapture);
             this.panel1.Location = new System.Drawing.Point(12, 82);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(829, 320);
+            this.panel1.Size = new System.Drawing.Size(608, 320);
             this.panel1.TabIndex = 2;
+            // 
+            // picCamara
+            // 
+            this.picCamara.BackColor = System.Drawing.Color.White;
+            this.picCamara.Image = global::_2267CamaraProject.Properties.Resources.signal1;
+            this.picCamara.Location = new System.Drawing.Point(17, 55);
+            this.picCamara.Name = "picCamara";
+            this.picCamara.Size = new System.Drawing.Size(574, 251);
+            this.picCamara.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picCamara.TabIndex = 0;
+            this.picCamara.TabStop = false;
             // 
             // lbNameCam1
             // 
@@ -172,7 +199,7 @@
             this.lbNameCam1.BackColor = System.Drawing.Color.Transparent;
             this.lbNameCam1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNameCam1.ForeColor = System.Drawing.Color.White;
-            this.lbNameCam1.Location = new System.Drawing.Point(669, 10);
+            this.lbNameCam1.Location = new System.Drawing.Point(449, 10);
             this.lbNameCam1.Name = "lbNameCam1";
             this.lbNameCam1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lbNameCam1.Size = new System.Drawing.Size(148, 32);
@@ -200,17 +227,6 @@
             this.IconIniciarCam.UseVisualStyleBackColor = false;
             this.IconIniciarCam.Click += new System.EventHandler(this.IconIniciarCam_Click);
             // 
-            // picCamara
-            // 
-            this.picCamara.BackColor = System.Drawing.Color.White;
-            this.picCamara.Image = global::_2267CamaraProject.Properties.Resources.signal1;
-            this.picCamara.Location = new System.Drawing.Point(17, 55);
-            this.picCamara.Name = "picCamara";
-            this.picCamara.Size = new System.Drawing.Size(794, 251);
-            this.picCamara.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picCamara.TabIndex = 0;
-            this.picCamara.TabStop = false;
-            // 
             // cbCamaraSelect
             // 
             this.cbCamaraSelect.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -223,22 +239,6 @@
             this.cbCamaraSelect.Name = "cbCamaraSelect";
             this.cbCamaraSelect.Size = new System.Drawing.Size(278, 26);
             this.cbCamaraSelect.TabIndex = 5;
-            // 
-            // iconRefresh
-            // 
-            this.iconRefresh.BackColor = System.Drawing.Color.Transparent;
-            this.iconRefresh.FlatAppearance.BorderSize = 0;
-            this.iconRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconRefresh.IconChar = FontAwesome.Sharp.IconChar.ArrowsRotate;
-            this.iconRefresh.IconColor = System.Drawing.Color.White;
-            this.iconRefresh.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconRefresh.IconSize = 35;
-            this.iconRefresh.Location = new System.Drawing.Point(245, 7);
-            this.iconRefresh.Name = "iconRefresh";
-            this.iconRefresh.Size = new System.Drawing.Size(43, 52);
-            this.iconRefresh.TabIndex = 4;
-            this.iconRefresh.UseVisualStyleBackColor = false;
-            this.iconRefresh.Click += new System.EventHandler(this.iconRefresh_Click);
             // 
             // iconCapture
             // 
@@ -269,7 +269,7 @@
             this.panel2.Controls.Add(this.iconCapture2);
             this.panel2.Location = new System.Drawing.Point(12, 417);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(829, 320);
+            this.panel2.Size = new System.Drawing.Size(608, 320);
             this.panel2.TabIndex = 9;
             // 
             // label1
@@ -278,7 +278,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(661, 10);
+            this.label1.Location = new System.Drawing.Point(441, 8);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label1.Size = new System.Drawing.Size(156, 32);
@@ -312,7 +312,7 @@
             this.picCamara2.Image = global::_2267CamaraProject.Properties.Resources.signal1;
             this.picCamara2.Location = new System.Drawing.Point(17, 55);
             this.picCamara2.Name = "picCamara2";
-            this.picCamara2.Size = new System.Drawing.Size(794, 251);
+            this.picCamara2.Size = new System.Drawing.Size(574, 251);
             this.picCamara2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCamara2.TabIndex = 0;
             this.picCamara2.TabStop = false;
@@ -359,7 +359,7 @@
             this.panel3.Controls.Add(this.iconCapture3);
             this.panel3.Location = new System.Drawing.Point(12, 748);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(829, 320);
+            this.panel3.Size = new System.Drawing.Size(608, 320);
             this.panel3.TabIndex = 10;
             // 
             // label2
@@ -368,7 +368,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(683, 10);
+            this.label2.Location = new System.Drawing.Point(463, 10);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label2.Size = new System.Drawing.Size(134, 32);
@@ -402,7 +402,7 @@
             this.picCamara3.Image = global::_2267CamaraProject.Properties.Resources.signal1;
             this.picCamara3.Location = new System.Drawing.Point(17, 55);
             this.picCamara3.Name = "picCamara3";
-            this.picCamara3.Size = new System.Drawing.Size(794, 251);
+            this.picCamara3.Size = new System.Drawing.Size(574, 251);
             this.picCamara3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCamara3.TabIndex = 0;
             this.picCamara3.TabStop = false;
@@ -447,9 +447,9 @@
             this.panel4.Controls.Add(this.picCamara4);
             this.panel4.Controls.Add(this.cbCamaraSelect4);
             this.panel4.Controls.Add(this.iconCapture4);
-            this.panel4.Location = new System.Drawing.Point(913, 82);
+            this.panel4.Location = new System.Drawing.Point(670, 82);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(949, 986);
+            this.panel4.Size = new System.Drawing.Size(1204, 986);
             this.panel4.TabIndex = 9;
             // 
             // label3
@@ -458,7 +458,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Arial Rounded MT Bold", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(828, 10);
+            this.label3.Location = new System.Drawing.Point(1071, 10);
             this.label3.Name = "label3";
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label3.Size = new System.Drawing.Size(108, 32);
@@ -492,7 +492,7 @@
             this.picCamara4.Image = global::_2267CamaraProject.Properties.Resources.signal1;
             this.picCamara4.Location = new System.Drawing.Point(17, 55);
             this.picCamara4.Name = "picCamara4";
-            this.picCamara4.Size = new System.Drawing.Size(913, 917);
+            this.picCamara4.Size = new System.Drawing.Size(1166, 917);
             this.picCamara4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picCamara4.TabIndex = 0;
             this.picCamara4.TabStop = false;
